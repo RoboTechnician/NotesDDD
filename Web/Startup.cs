@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
+using Infrastructure.IoC;
 using Domain.Models;
 using Domain.Repositories;
 
@@ -30,29 +31,11 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
-
             services.AddDbContext<NotesDBContext>(option => option.UseNpgsql(Configuration.GetConnectionString("NotesDBConnection")));
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<NotesDBContext>();
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
-            //{
-            //    opt.LoginPath = "/Account/Login";
-            //    opt.LogoutPath = "/Account/Logout";
-            //});
-            //services.ConfigureApplicationCookie(opt =>
-            //{
-            //    opt.LoginPath = $"/Account/Login";
-            //    opt.LogoutPath = $"/Account/Logout";
-            //});
-
-            services.AddScoped<INoteRepository, NoteRepository>();
+            RegisterServices(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -82,6 +65,11 @@ namespace Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            DependencyContainer.RegisterServices(services);
         }
     }
 }
