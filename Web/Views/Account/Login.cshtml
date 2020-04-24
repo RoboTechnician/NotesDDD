@@ -1,0 +1,47 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post" asp-controller="Account" asp-action="Login">
+                <h4>Use a local account to log in.</h4>
+                <hr>
+                <div asp-validation-summary="ModelOnly" class="text-danger validation-summary-valid">
+                    <ul>
+                        <li style="display:none"></li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" type="email" id="Input_Email">
+                    <span asp-validation-for="Email" class="text-danger field-validation-valid"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" type="password" id="Input_Password">
+                    <span asp-validation-for="Password" class="text-danger field-validation-valid"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="RememberMe" type="checkbox" id="Input_RememberMe" value="true">
+                            @Html.DisplayNameFor(model => model.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a asp-controller="Account" asp-action="Register">Register as a new user</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

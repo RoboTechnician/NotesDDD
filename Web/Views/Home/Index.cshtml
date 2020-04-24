@@ -1,0 +1,32 @@
+﻿@using Domain.Models
+
+@model System.Collections.Generic.IEnumerable<Note>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <form method="get" asp-controller="Home" asp-action="Index" class="row">
+        <input class="col form-control" type="text" name="search" placeholder="Search..." />
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <div class="notes">
+        @foreach (var note in Model)
+        {
+            <div class="col note">
+                <div class="row note-top">
+                    <p class="h5 col title">
+                        <strong>@note.Title</strong>
+                    </p>
+                    <form method="post" asp-controller="Home" asp-action="Delete" asp-route-id="@note.Id">
+                        <button class="btn btn-delete" type="submit">Delete</button>
+                    </form>
+                </div>
+                <p class="text-content">@note.Text</p>
+            </div>
+        }
+    </div>
+    <form method="get" asp-controller="Home" asp-action="Add" >
+        <button class="btn btn-primary">Add</button>
+    </form>
+</div>

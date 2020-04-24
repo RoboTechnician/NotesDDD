@@ -1,0 +1,13 @@
+﻿@model Web.Models.AddNoteViewModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>Add</h2>
+<form method="post" asp-controller="Home" asp-action="Add">
+    <input asp-for="Title" class="form-control" type="text" placeholder="Title" />
+    <span asp-validation-for="Title" class="text-danger field-validation-valid"></span>
+    <textarea asp-for="Text" class="form-control" placeholder="Text"></textarea>
+    <span asp-validation-for="Text" class="text-danger field-validation-valid"></span>
+    <button class="btn btn-lg btn-primary" type="submit">Add</button>
+</form>
